@@ -1,5 +1,5 @@
 ---
-title: "Debugging C code with"
+title: "Debugging C code with gdb"
 date: 2022-09-29
 ---
 # Debugging C code with gdb
