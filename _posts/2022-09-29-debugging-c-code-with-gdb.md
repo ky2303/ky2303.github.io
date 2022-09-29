@@ -136,7 +136,7 @@ Warning: 'set logging on', an alias for the command 'set logging enabled', is de
 Use 'set logging enabled on'.
 ```
 
-![Breakpoint 1](../assets/2022-09-29-debugging-c-code-with-gdb/breakpoint1.png)
+![Breakpoint 1]({{"../assets/2022-09-29-debugging-c-code-with-gdb/breakpoint1.png" | relative_url }})
 
 Screenshot 1: Here is our program running in GDB. Peda gives us a nice view of the registers, the assembly code being executed, and the stack. Below that, we can see that we have hit our first breakpoint, line 6, the entry to our `main()` function. 
 
@@ -147,7 +147,7 @@ Let's continue execution:
 gdb-peda$ c
 ```
 
-![Breakpoint 2](../assets/2022-09-29-debugging-c-code-with-gdb/breakpoint2.png)
+![Breakpoint 2]({{"../assets/2022-09-29-debugging-c-code-with-gdb/breakpoint2.png" | relative_url }})
 Screenshot 2: We have now hit breakpoint 2 - line 9 in example.c
 
 Let's return to our source file:
