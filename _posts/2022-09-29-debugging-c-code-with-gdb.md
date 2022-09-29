@@ -1,18 +1,18 @@
 ---
-title: "debugging_c_code_with_gdb"
-date: 2019-09-29
+title: "Debugging C code with gdb"
+date: 2022-09-29
 ---
 # Debugging C code with gdb
 
-## Intro
+### Intro
 
-I searched around for a step-by-step tutorial on how to debug c programs like this but could not find one. As a newcomer, starting to learn c, I found a lot of this information is scattered and/or buried in docs so I thought for my first blogpost to make a tutorial to help other new c users when they reach the issues I faced. If you would like to read more, the entire GDB manual can be found [here](https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_toc.html).
+I searched around for a tutorial on how to debug c programs quickly but could not find one. As a newcomer, starting to learn c, I found a lot of this information is scattered and/or buried in docs so I thought for my first blogpost, to make a tutorial helping other new c users solve the issues I faced. If you would like to read more, the entire GDB manual can be found [here](https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_toc.html).
 
 I have also aggregated a list of notes I have taken after learning and using gdb for a little over a year. These are at the [end](#other_useful_info) of the tutorial.
 
-## Tools i used
-gdb (https://www.sourceware.org/gdb/)
-Peda (https://github.com/longld/peda) - not completely necessary for this tutorial but useful for looking at memory. 
+### Tools i used
+gdb (https://www.sourceware.org/gdb/)  
+Peda (https://github.com/longld/peda) - not completely necessary for this tutorial but useful for looking at memory.  
 
 ## Tutorial
 
@@ -41,7 +41,7 @@ int main() {
 
 ### Compile binary
 
-When debugging, compile your code with the `-g` flag. From gcc's man page `-g` will: "Produce debugging information in the operating system's native format (stabs, COFF, XCOFF, or DWARF).  GDB can work with this debugging information." There are also a few other [different versions](https://gcc.gnu.org/onlinedocs/gcc/Debugging-Options.html) of the `-g` flag. 
+When debugging, compile your code with the `-g` flag. This allows us to break on specific lines of code and view variables later on. From gcc's man page, `-g` will: "Produce debugging information in the operating system's native format (stabs, COFF, XCOFF, or DWARF).  GDB can work with this debugging information." There are also a few other [different versions](https://gcc.gnu.org/onlinedocs/gcc/Debugging-Options.html) of the `-g` flag. 
 
 Compile example.c using the flag.
 
@@ -52,18 +52,19 @@ example example.c
 $ ./example
 hello world
 $ 
+
 ```
 
-## Starting gdb
+### Starting gdb
 
 To start GDB:
 
-```
+```sh
 $ gdb example
 ```
 
 We are presented with the gdb-peda cli:
-```
+```sh
 gdb-peda$
 ```
 
@@ -85,7 +86,7 @@ Also, pressing `ENTER` without typing a command is the same as typing the previo
 
 To set a breakpoint, use `break` or `b` and the function you would like to break on. For example, to break when we enter the `main()` function in our exmaple code, we would type:
 
-```
+```sh
 gdb-peda$ b main
 Breakpoint 1 at 0x1175: file example.c, line 6.
 gdb-peda$
@@ -115,7 +116,7 @@ cat -n example.c
 ```
 
 To set a breakpoint at line 9:
-```
+```sh
 gdb-peda$ b example.c:9
 Breakpoint 2 at 0x119d: file example.c, line 9.
 gdb-peda$ 
@@ -124,7 +125,7 @@ gdb-peda$
 ### Running the program 
 
 Now run the program using `r`. Some errors may appear but it's ok.
-```
+```sh
 gdb-peda$ r
 Starting program: /debugging_c/example 
 [Thread debugging using libthread_db enabled]
@@ -136,18 +137,18 @@ Warning: 'set logging on', an alias for the command 'set logging enabled', is de
 Use 'set logging enabled on'.
 ```
 
-![Breakpoint 1](2022-09-29-debugging_c_code_with_gdb/images/breakpoint1.png)
+![Breakpoint 1]({{"../assets/2022-09-29-debugging-c-code-with-gdb/breakpoint1.png" | relative_url }})
 
 Screenshot 1: Here is our program running in GDB. Peda gives us a nice view of the registers, the assembly code being executed, and the stack. Below that, we can see that we have hit our first breakpoint, line 6, the entry to our `main()` function. 
 
 
 Let's continue execution:
 
-```
+```sh
 gdb-peda$ c
 ```
 
-![Breakpoint 2](2022-09-29-debugging_c_code_with_gdb/images/breakpoint2.png)
+![Breakpoint 2]({{"../assets/2022-09-29-debugging-c-code-with-gdb/breakpoint2.png" | relative_url }})
 Screenshot 2: We have now hit breakpoint 2 - line 9 in example.c
 
 Let's return to our source file:
@@ -173,17 +174,18 @@ cat -n example.c
     17	}
 ```
 
-In Screenshot 2, we see the line `9  int str_length = sizeof (str) / sizeof (char);`. This is the next process to be executed. We can display this by using `print` or `p` to show the value of a variable. 
+In Screenshot 2, we see the line `9  int str_length = sizeof (str) / sizeof (char);`. This is the next line to be executed. We can display this by using `print` or `p` to show the value of a variable. 
 
 ```sh
 gdb-peda$ p str_length
-$1 = 0x7fff //              <- ??
+$1 = 0x7fff                 // <- ??
 ```
 
-Step 1 line and print the variable again.
+Step 1 line of code with `s` and then print the variable again.
 
 ```sh
 gdb-peda$ s
+<... stuff from peda ...>
 Legend: code, data, rodata, value
 11	    for (int i=0; i < str_length; i++) {
 gdb-peda$ p str_length
@@ -191,15 +193,15 @@ $2 = 0xd
 gdb-peda$ 
 ```
 
-Even though `hello world\n` is 12 characters, there is also the null character `\0` that indicates the end of the string.
+Even though `hello world\n` is 12 characters, there is also the null character `\0` that indicates the end of the string. `0xd` = 13
 
-You can also give the print command a format.
+You can also give the print command a format by using `/`.
 ```sh
 gdb-peda$ p/d str_length
 $3 = 13
 ```
 
-You may have noticed that the print command is also giving us variables. We can use these if we need to do a quick calculation. This is very useful when messing with addresses later on.
+You may have noticed that the print command is also giving us variables ($1, $2, $3). We can use these if we need to do a quick calculation. This is very useful when messing with addresses later on.
 
 ```sh
 gdb-peda$ p $3+1
@@ -213,7 +215,7 @@ $6 = 0x7fffffffdf24
 
 ## <a name="other_useful_info"></a>Other useful info: 
 
-I have also been learning how to use gdb in cybersecurity courses. It is useful when learning buffer overflow and format string vulnerabilities. Here are some other things I have found useful enough to include in my notes. 
+I have been learning how to use gdb in cybersecurity classes and while participating in ctfs. It is useful when learning buffer overflow and format string vulnerabilities. Here are some other things I picked up along the journey and have found useful enough to include in my notes. 
 
 ### Setting Arguments
 
@@ -236,7 +238,7 @@ int main (int argc, char *argv[]) {
 }
 ```
 
-```
+```sh
 $ gcc -g args.c -o args
 $ ./args
 exiting ...
@@ -244,9 +246,9 @@ $ ./args 42
 The number: 42
 ```
 
-In GDB, we can run the program with args:
+Run the program with arg 5:
 
-```
+```sh
 gdb-peda$ r 5
 Starting program: /code/args 5
 [Thread debugging using libthread_db enabled]
@@ -261,7 +263,7 @@ Use 'set logging enabled on'.
 
 Warning: not running
 
-``
+```
 
 ### Breakpoints
 
@@ -276,37 +278,40 @@ Examine registers:
 
 Examine the memory contents of an address:  
 You can use `/` to specify the formatting of the contents.  
+
 ```
 x [_Address expression_]  
 x /[_Format_] [_Address expression_]  
 x /[_Length_][_Format_] [_Address expression_]  
 ```
+
 Examples:
 `x/1s [address]` - examine / 1 string  
 `x/2s [address]` - examine / 2 strings  
 `x/1s $eax` - examine value in a register as a string  
 
-Go to [https://visualgdb.com/gdbreference/commands/x] for a complete list of formatting.
+Go to <https://visualgdb.com/gdbreference/commands/x> for a complete list of formatting.  
 
 ### backtrace
-The backtrace command, `bt` shows a function's stack trace.
+The backtrace command, `bt` shows a function's stack trace.  
 
 ### running gdb on a wine target
 
 To be honest, this still confuses me, but I am trying to learn more and get better at it.
-https://schlafwandler.github.io/posts/attacking-wine-part-ii/
+<https://schlafwandler.github.io/posts/attacking-wine-part-ii/>  
 
+```sh
+$ wine simple_server_target.exe
+$ gdb -p $(pid of simple_server_target.exe)
 ```
-wine simple_server_target.exe
-gdb -p $(pidof simple_server_target.exe)
-```
+
 
 ## End
 
 Thank you for reading.
 
 ### References:
-https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_toc.html  
-https://sourceware.org/gdb/onlinedocs/gdb/Variables.html  
-https://sourceware.org/gdb/current/onlinedocs/gdb/Symbols.html  
-https://web.eecs.umich.edu/~sugih/pointers/gdbQS.html#:~:text=To%20execute%20one%20line%20of,next%22%20or%20%22n%22
+<https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_toc.html>  
+<https://sourceware.org/gdb/onlinedocs/gdb/Variables.html>  
+<https://sourceware.org/gdb/current/onlinedocs/gdb/Symbols.html>  
+<https://web.eecs.umich.edu/~sugih/pointers/gdbQS.html#:~:text=To%20execute%20one%20line%20of,next%22%20or%20%22n%22>  

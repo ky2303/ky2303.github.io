@@ -1,4 +1,6 @@
-theme:minima
-title:ky2303.github.io
-author:ky2303
-description:none
+theme: minima
+title: ky2303.github.io
+author:  ky2303
+description: none
+header_pages:
+  - contact.md
