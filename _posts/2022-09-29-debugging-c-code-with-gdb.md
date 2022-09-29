@@ -173,7 +173,7 @@ cat -n example.c
     17	}
 ```
 
-In Screenshot 2, we see the line `9  int str_length = sizeof (str) / sizeof (char);`. This is the next process to be executed. We can display this by using `print` or `p` to show the value of a variable. 
+In Screenshot 2, we see the line `9  int str_length = sizeof (str) / sizeof (char);`. This is the next line to be executed. We can display this by using `print` or `p` to show the value of a variable. 
 
 ```sh
 gdb-peda$ p str_length
@@ -184,6 +184,7 @@ Step 1 line and print the variable again.
 
 ```sh
 gdb-peda$ s
+<...stuff from peda...>
 Legend: code, data, rodata, value
 11	    for (int i=0; i < str_length; i++) {
 gdb-peda$ p str_length
@@ -191,15 +192,15 @@ $2 = 0xd
 gdb-peda$ 
 ```
 
-Even though `hello world\n` is 12 characters, there is also the null character `\0` that indicates the end of the string.
+Even though `hello world\n` is 12 characters, there is also the null character `\0` that indicates the end of the string. `0xd` = 13
 
-You can also give the print command a format.
+You can also give the print command a format by using `/`.
 ```sh
 gdb-peda$ p/d str_length
 $3 = 13
 ```
 
-You may have noticed that the print command is also giving us variables. We can use these if we need to do a quick calculation. This is very useful when messing with addresses later on.
+You may have noticed that the print command is also giving us variables ($1, $2, $3). We can use these if we need to do a quick calculation. This is very useful when messing with addresses later on.
 
 ```sh
 gdb-peda$ p $3+1
@@ -213,7 +214,7 @@ $6 = 0x7fffffffdf24
 
 ## <a name="other_useful_info"></a>Other useful info: 
 
-I have also been learning how to use gdb in cybersecurity courses. It is useful when learning buffer overflow and format string vulnerabilities. Here are some other things I have found useful enough to include in my notes. 
+I have been learning how to use gdb in cybersecurity courses. It is useful when learning buffer overflow and format string vulnerabilities. Here are some other things I have found useful enough to include in my notes. 
 
 ### Setting Arguments
 
