@@ -41,7 +41,7 @@ int main() {
 
 ### Compile binary
 
-When debugging, compile your code with the `-g` flag. From gcc's man page `-g` will: "Produce debugging information in the operating system's native format (stabs, COFF, XCOFF, or DWARF).  GDB can work with this debugging information." There are also a few other [different versions](https://gcc.gnu.org/onlinedocs/gcc/Debugging-Options.html) of the `-g` flag. 
+When debugging, compile your code with the `-g` flag. This allows us to break on specific lines of code and view variables later on. From gcc's man page, `-g` will: "Produce debugging information in the operating system's native format (stabs, COFF, XCOFF, or DWARF).  GDB can work with this debugging information." There are also a few other [different versions](https://gcc.gnu.org/onlinedocs/gcc/Debugging-Options.html) of the `-g` flag. 
 
 Compile example.c using the flag.
 
@@ -52,18 +52,19 @@ example example.c
 $ ./example
 hello world
 $ 
+
 ```
 
-## Starting gdb
+### Starting gdb
 
 To start GDB:
 
-```
+```sh
 $ gdb example
 ```
 
 We are presented with the gdb-peda cli:
-```
+```sh
 gdb-peda$
 ```
 
@@ -85,7 +86,7 @@ Also, pressing `ENTER` without typing a command is the same as typing the previo
 
 To set a breakpoint, use `break` or `b` and the function you would like to break on. For example, to break when we enter the `main()` function in our exmaple code, we would type:
 
-```
+```sh
 gdb-peda$ b main
 Breakpoint 1 at 0x1175: file example.c, line 6.
 gdb-peda$
@@ -115,7 +116,7 @@ cat -n example.c
 ```
 
 To set a breakpoint at line 9:
-```
+```sh
 gdb-peda$ b example.c:9
 Breakpoint 2 at 0x119d: file example.c, line 9.
 gdb-peda$ 
@@ -124,7 +125,7 @@ gdb-peda$
 ### Running the program 
 
 Now run the program using `r`. Some errors may appear but it's ok.
-```
+```sh
 gdb-peda$ r
 Starting program: /debugging_c/example 
 [Thread debugging using libthread_db enabled]
@@ -143,7 +144,7 @@ Screenshot 1: Here is our program running in GDB. Peda gives us a nice view of t
 
 Let's continue execution:
 
-```
+```sh
 gdb-peda$ c
 ```
 
@@ -180,11 +181,11 @@ gdb-peda$ p str_length
 $1 = 0x7fff                 // <- ??
 ```
 
-Step 1 line and print the variable again.
+Step 1 line of code with `s` and then print the variable again.
 
 ```sh
 gdb-peda$ s
-<...stuff from peda...>
+<... stuff from peda ...>
 Legend: code, data, rodata, value
 11	    for (int i=0; i < str_length; i++) {
 gdb-peda$ p str_length
@@ -214,7 +215,7 @@ $6 = 0x7fffffffdf24
 
 ## <a name="other_useful_info"></a>Other useful info: 
 
-I have also been learning how to use gdb in cybersecurity courses and while participating in ctfs. It is useful when learning buffer overflow and format string vulnerabilities. Here are some other things I picked up along the journey and have found useful enough to include in my notes. 
+I have been learning how to use gdb in cybersecurity classes and while participating in ctfs. It is useful when learning buffer overflow and format string vulnerabilities. Here are some other things I picked up along the journey and have found useful enough to include in my notes. 
 
 ### Setting Arguments
 
@@ -237,7 +238,7 @@ int main (int argc, char *argv[]) {
 }
 ```
 
-```
+```sh
 $ gcc -g args.c -o args
 $ ./args
 exiting ...
@@ -247,7 +248,7 @@ The number: 42
 
 Run the program with arg 5:
 
-```
+```sh
 gdb-peda$ r 5
 Starting program: /code/args 5
 [Thread debugging using libthread_db enabled]
@@ -289,27 +290,28 @@ Examples:
 `x/2s [address]` - examine / 2 strings  
 `x/1s $eax` - examine value in a register as a string  
 
-Go to [https://visualgdb.com/gdbreference/commands/x] for a complete list of formatting.
+Go to <https://visualgdb.com/gdbreference/commands/x> for a complete list of formatting.  
 
 ### backtrace
-The backtrace command, `bt` shows a function's stack trace.
+The backtrace command, `bt` shows a function's stack trace.  
 
 ### running gdb on a wine target
 
 To be honest, this still confuses me, but I am trying to learn more and get better at it.
-https://schlafwandler.github.io/posts/attacking-wine-part-ii/
+<https://schlafwandler.github.io/posts/attacking-wine-part-ii/>  
 
+```sh
+$ wine simple_server_target.exe
+$ gdb -p $(pid of simple_server_target.exe)
 ```
-wine simple_server_target.exe
-gdb -p $(pidof simple_server_target.exe)
-```
+
 
 ## End
 
 Thank you for reading.
 
 ### References:
-https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_toc.html  
-https://sourceware.org/gdb/onlinedocs/gdb/Variables.html  
-https://sourceware.org/gdb/current/onlinedocs/gdb/Symbols.html  
-https://web.eecs.umich.edu/~sugih/pointers/gdbQS.html#:~:text=To%20execute%20one%20line%20of,next%22%20or%20%22n%22
+<https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_toc.html>  
+<https://sourceware.org/gdb/onlinedocs/gdb/Variables.html>  
+<https://sourceware.org/gdb/current/onlinedocs/gdb/Symbols.html>  
+<https://web.eecs.umich.edu/~sugih/pointers/gdbQS.html#:~:text=To%20execute%20one%20line%20of,next%22%20or%20%22n%22>  
