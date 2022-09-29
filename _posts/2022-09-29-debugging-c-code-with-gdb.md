@@ -6,7 +6,7 @@ date: 2022-09-29
 
 ### Intro
 
-I searched around for a step-by-step tutorial on how to debug c programs like this but could not find one. As a newcomer, starting to learn c, I found a lot of this information is scattered and/or buried in docs so I thought for my first blogpost to make a tutorial to help other new c users when they reach the issues I faced. If you would like to read more, the entire GDB manual can be found [here](https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_toc.html).
+I searched around for a tutorial on how to debug c programs quickly but could not find one. As a newcomer, starting to learn c, I found a lot of this information is scattered and/or buried in docs so I thought for my first blogpost, to make a tutorial helping other new c users solve the issues I faced. If you would like to read more, the entire GDB manual can be found [here](https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_toc.html).
 
 I have also aggregated a list of notes I have taken after learning and using gdb for a little over a year. These are at the [end](#other_useful_info) of the tutorial.
 
