@@ -177,7 +177,7 @@ In Screenshot 2, we see the line `9  int str_length = sizeof (str) / sizeof (cha
 
 ```sh
 gdb-peda$ p str_length
-$1 = 0x7fff //              <- ??
+$1 = 0x7fff                 // <- ??
 ```
 
 Step 1 line and print the variable again.
