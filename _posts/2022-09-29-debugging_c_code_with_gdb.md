@@ -143,7 +143,7 @@ Let's continue execution:
 gdb-peda$ c
 ```
 
-![Breakpoint 2](2022-09-29-debugging_c_code_with_gdb/images/breakpoint1.png)
+![Breakpoint 2](2022-09-29-debugging_c_code_with_gdb/images/breakpoint2.png)
 Screenshot 2: We have now hit breakpoint 2 - line 9 in example.c
 
 Let's return to our source file:
