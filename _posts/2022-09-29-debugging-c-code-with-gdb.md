@@ -214,7 +214,7 @@ $6 = 0x7fffffffdf24
 
 ## <a name="other_useful_info"></a>Other useful info: 
 
-I have been learning how to use gdb in cybersecurity courses. It is useful when learning buffer overflow and format string vulnerabilities. Here are some other things I have found useful enough to include in my notes. 
+I have also been learning how to use gdb in cybersecurity courses and while participating in ctfs. It is useful when learning buffer overflow and format string vulnerabilities. Here are some other things I picked up along the journey and have found useful enough to include in my notes. 
 
 ### Setting Arguments
 
