@@ -1,5 +1,5 @@
 ---
-title: "Debugging C code with gdb"
+title: "Debugging C code with"
 date: 2022-09-29
 ---
 # Debugging C code with gdb
@@ -11,8 +11,8 @@ I searched around for a step-by-step tutorial on how to debug c programs like th
 I have also aggregated a list of notes I have taken after learning and using gdb for a little over a year. These are at the [end](#other_useful_info) of the tutorial.
 
 ## Tools i used
-gdb (https://www.sourceware.org/gdb/)
-Peda (https://github.com/longld/peda) - not completely necessary for this tutorial but useful for looking at memory. 
+gdb (https://www.sourceware.org/gdb/)  
+Peda (https://github.com/longld/peda) - not completely necessary for this tutorial but useful for looking at memory.  
 
 ## Tutorial
 
@@ -136,7 +136,7 @@ Warning: 'set logging on', an alias for the command 'set logging enabled', is de
 Use 'set logging enabled on'.
 ```
 
-![Breakpoint 1](../files/2022-09-29-debugging-c-code-with-gdb/images/breakpoint1.png)
+![Breakpoint 1](../_files/2022-09-29-debugging-c-code-with-gdb/images/breakpoint1.png)
 
 Screenshot 1: Here is our program running in GDB. Peda gives us a nice view of the registers, the assembly code being executed, and the stack. Below that, we can see that we have hit our first breakpoint, line 6, the entry to our `main()` function. 
 
