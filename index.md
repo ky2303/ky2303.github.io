@@ -1,4 +1,4 @@
 ---
-title: "debugging_c_code_with_gdb"
+title: "debugging-c-code-with-gdb"
 date: 2019-09-29
 ---
