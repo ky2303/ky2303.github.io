@@ -244,7 +244,7 @@ $ ./args 42
 The number: 42
 ```
 
-In GDB, we can run the program with args:
+Run the program with arg 5:
 
 ```
 gdb-peda$ r 5
@@ -261,7 +261,7 @@ Use 'set logging enabled on'.
 
 Warning: not running
 
-``
+```
 
 ### Breakpoints
 
@@ -276,11 +276,13 @@ Examine registers:
 
 Examine the memory contents of an address:  
 You can use `/` to specify the formatting of the contents.  
+
 ```
 x [_Address expression_]  
 x /[_Format_] [_Address expression_]  
 x /[_Length_][_Format_] [_Address expression_]  
 ```
+
 Examples:
 `x/1s [address]` - examine / 1 string  
 `x/2s [address]` - examine / 2 strings  
