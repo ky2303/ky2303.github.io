@@ -1,4 +1,4 @@
 ---
 title: "debugging-c-code-with-gdb"
-date: 2019-09-29
+date: 2022-09-29
 ---
