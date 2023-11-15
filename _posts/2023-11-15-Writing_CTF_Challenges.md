@@ -1,6 +1,6 @@
 ---
 title: "Writing CTF Challenges"
-date: 2023-11-12
+date: 2023-11-15
 ---
 
 # Intro
@@ -14,7 +14,7 @@ I finally got a little airpocket of downtime so I figured I would do a write up 
 
 [Github](https://github.com/osirislab/CSAW-CTF-2023-Quals/tree/main/misc/android-dropper)
 
-![android_dropper]({{"../assets/2022-11-12-Writing_CTF_Challenges/android_dropper.png" | relative_url }})
+![android_dropper]({{"../assets/2022-11-15-Writing_CTF_Challenges/android_dropper.png" | relative_url }})
 
 I wrote this challenge towards the end of my semester taking mobile security. It was based on [a blog post](https://www.eff.org/deeplinks/2022/04/anatomy-android-malware-dropper) by the Electronic Frontier Foundation that I found fascinating. In short, researchers at the EFF used open source static and dynamic analysis tools to reverese engineer a fake banking app that "dropped" a completely different executable (a dalvik executable, or dex) to connect to a tor site. This executable could give a threat actor command and control abilities on the victim's device. I wanted to emulate this "dropping" technique in a CTF challenge so I wrote a similar (and simpler) app.
 
@@ -39,20 +39,20 @@ This function takes three inputs, a start index, an end index, and an xor key. T
 
 [Github](https://github.com/osirislab/CSAW-CTF-2023-Finals/tree/main/web/dinoauth)
 
-![dinoauth]({{"../assets/2022-11-12-Writing_CTF_Challenges/dinoauth.png" | relative_url }})
+![dinoauth]({{"../assets/2022-11-15-Writing_CTF_Challenges/dinoauth.png" | relative_url }})
 
 It was an honor to collaborate with the incredibly smart rollingcoconut on this challenge. We worked together for a bit more than a month on this and I think it turned out to be a great finals-level challenge. At the start of the process I knew very little about the oauth framework (besides its use cases) but I learned so much along the way.  
 
 OAuth is an open standard for authorization that enables applications to obtain access to resources. I started by reading the material and completing the labs on [Portswigger](https://portswigger.net/web-security/oauth). When planning the challenge, we first discussed how to craft a puzzle with the oauth flow and decided on a couple of constraints. First, we wanted the challenge to be relevant to industry, "teaching" players the oauth flow and how it can be exploited. Second, we wanted to avoid having a CSRF/XSS element to it, since many oauth challenges use this flow and the classic "sending a phishing link" to an admin bot introduces many potential points of failure. With this in mind, we decided on an oauth scope upgrade challenge, where a normal user could "upgrade" their client privileges to access restricted resources. Portswigger distills this attack flow into easy to understand terms [here](https://portswigger.net/web-security/oauth#flawed-scope-validation). Our challenge was based on the [authorization code grant type](https://portswigger.net/web-security/oauth/grant-types#authorization-code-grant-type):
 
-![authcode_flow]({{"../assets/2022-11-12-Writing_CTF_Challenges/portswigger_authcode_flow.jpeg" | relative_url }})
+![authcode_flow]({{"../assets/2022-11-15-Writing_CTF_Challenges/portswigger_authcode_flow.jpeg" | relative_url }})
 _From Portswigger_
 
 Since we did not have much time to work on the challenge, we decided to take a working oauth implentation and "break" it to create our challenge. We found [this](https://github.com/waychan23/koa2-oauth-server) repository on Github and borrwed the base code for our website from the working example. (Thanks waychan23!). Conveniently, using this code avoided messing with real databases since the user and client databases were stored in memory. However, to make the code exploitable, a self-taught crash-course on the koa framework was required. (Aka a lot of reading docs and stackoverflow). 
 
 In this challenge, players received a link to "Darkweb Dinos", a simple site on which bad guys buy and sell dinosaurs. (None of these functions actually worked ... not because we ran out of time, but because we did not want players to go down rabbit holes ... 😛 ... see Lessons Learned) The goal of the challenge was to access the `/buy_flagosaurus` endpoint, which was clear from the challenge description and homepage. However, this endpoint was protected by oauth by requiring the `dinomaster_app` client_id and `buy_flagosaurus` scope to access. When a normal user tried to access this page, they would receive an error: `Insufficient scope: authorized scope is insufficient`.
 
-![dinoauth_homepage]({{"../assets/2022-11-12-Writing_CTF_Challenges/dinoauth_homepage.png" | relative_url }})
+![dinoauth_homepage]({{"../assets/2022-11-15-Writing_CTF_Challenges/dinoauth_homepage.png" | relative_url }})
 
 When exploring the site, any incorrect request to `/oauth/` would be rerouted to an error page, `/oauth/*`. This page showed a stacktrace, but also revealed another clue, the existence of the `/oauth/debug` endpoint. From the `/oauth/debug` page, the entire flow for a normal oauth authorization on the website was visible. This flow was: 
 
@@ -71,7 +71,7 @@ The tricky part in this challenge was that the [koa-session library](https://git
 
 This key was the base32 encoded string "keep_your_koa_sess_sig_secure". Up until the final request, the `koa:sess` cookie remained the same. However, the request to `/buy_flagosaurus` required the access token (and maybe the refresh token) to be sent in the `koa:sess` cookie. This meant cookie and its signature, `koa:sess.sig` would not match anymore. The solution to this could be found in the koa-session code, or some googling would lead players to an answer on [stackoverflow](https://stackoverflow.com/questions/48158582/what-is-koasess-sig): the `koa:sess.sig` is a _"27-byte url-safe base64 SHA1 value representing the hash of cookie-name=cookie-value against the first Keygrip key"_. Creating this signature manually and sending the final request to `/buy_flagosaurus` reveals the flag.
 
-![dinoauth_burp]({{"../assets/2022-11-12-Writing_CTF_Challenges/dinoauth_burp.png" | relative_url }})
+![dinoauth_burp]({{"../assets/2022-11-15-Writing_CTF_Challenges/dinoauth_burp.png" | relative_url }})
 
 We summarized all the steps of this challenge into a solver script [here](https://github.com/osirislab/CSAW-CTF-2023-Finals/blob/main/web/dinoauth/solver.py):
 
@@ -169,7 +169,7 @@ During quals, due to the hard-coded variables in the "dropped.dex" file, I found
 
 Unfortunately, at the start of the CTF, I made a mistake and put the "c2" address in the CTFd challenge description, immediately reavealing the string containing the flag to competitors. Out of fairness to everyone, I decided to just leave this up. I think this potentially reduced the challenge difficulty since the first part of the challenge was to find this address, like the EFF researchers did with the real tor c2 address. In the end, I think most players solved the challenge correctly since the xor key was also not revealed until "dropped.dex" was decoded. However, one clever participant notified me that the entire challenge was solvable using CyberChef's "Magic" tool, which I was completely unaware of and amazed to learn about. Since then, I have been using it as a quick inital test for everything. In the end, while not a huge deal, this non-intentional solution to the challenge could have been avoided if I had just double-checked the description before the start of competition.
 
-![cyberchef_magic]({{"../assets/2022-11-12-Writing_CTF_Challenges/cyberchef_magic.png" | relative_url }})
+![cyberchef_magic]({{"../assets/2022-11-15-Writing_CTF_Challenges/cyberchef_magic.png" | relative_url }})
 
 During finals, I was very happy to have a solver script ready when we reached the deployment phase. When deploying a web challenge, there are many different things that could affect the flow of your website, and when the main element of your challenge involves flow (oauth), many things could go wrong. While testing, we had some dns issues so we had to release the challenge with an ip address. Luckily, we were able to diagnose this efficiently without opening up Burpsuite and going throught the entire challenge for each new test.
 
