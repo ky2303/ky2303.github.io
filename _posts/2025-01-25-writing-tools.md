@@ -77,7 +77,7 @@ I also would like to fix the issue with larger files when sending PUT requests. 
 
 Back to my thoughts on the certification process. After failing my first exam attempt, I realized that I was way too overconfident. I had crested the initial peak of the Dunning-Kruger curve.
 
-<img align="center" src="../assets/2025-01-19-writing-tools/dunning-kreuger.png" alt="dunning_kreuger"/>
+![dunning_kreuger]({{ "../assets/2025-01-19-writing-tools/dunning-kreuger.png" | relative_url }}){:style="margin-left:auto; margin-right:auto"}
 
 As I took a step back, I realized how many fundamental concepts I did not fully grasp. I did not give the labs as much time and thought as I should have and I quickly skimmed through the PDF that OffSec gives you. While this approach may have worked in the tests I took in former academic environments, it was inadequate for a practical exam in a simulated environment. Unfortunately, I needed a job so I decided to shelf the idea of getting the OSCP and hammered out some entry-level CompTIA certs to get past the HR filters. 
 
@@ -89,10 +89,12 @@ I now had the decision on whether I should use my second exam attempt on the wir
 
 Unfortunately, I did not pass the OSCP+ exam. In the few days after, I was devastated and thought less of myself, constantly going over different enumeration methods and attacks I may have missed in my head. The feeling of failure after my first attempt returned, and I felt that I had crested another peak in another Dunning-Kruger curve. This is when I realized my own curve looked something like this:
 
-<img align="center" src="../assets/2025-01-19-writing-tools/dunning-kreuger-modified.png" alt="dunning_kreuger_modified"/>
+![dunning_kreuger]({{ "../assets/2025-01-19-writing-tools/dunning-kreuger-modified.png" | relative_url }}){:style="margin-left:auto; margin-right:auto"}
+
+(Apoloigies for the quality. Graphic design is not my passion)
 
 After some time and reflection, I figured that I had accomplished the original goal I set for myself when I first started out this journey. Even with the failures, I learned new things -- in security and about myself -- that made the input time valuable. Two things have helped me cope with low times for me career-wise. First, after the Denver Nuggets won their first NBA championship in franchise history in 2023, center Nikola Jokic had one of my favorite recent quotes:
 
-<img align="center" src="../assets/2025-01-19-writing-tools/jokic.jpg" alt="jokic_quote" width="600"/>
+![jokic]({{ "../assets/2025-01-19-writing-tools/jokic.jpg" | relative_url }}){:style="width:600px"}
 
-Secondly, a practical exercise that I recently started. Another podcast I enjoy is "My First Million" with Sam Parr and Shaan Puri. I one episode, Puri talks about a personal Slack channel he has called "Highs and Lows", in which he writes down the most emotional moments while running his businesses. When an extreme event happens, whether good or bad, Puri will write down the event in the channel, overtime creating a log of times to look back on and see how far you have come. I have started to do this in my own way by writing down these types of events for my own career (though not in a Slack channel). Doing this has been helpful, and my hope is that in the long-term it will help me smooth out my own modified Dunning-Kruger curve above, balancing emotions with confidence and competence. The last mention of Puri's "Highs and Lows" channel is at the 46:29 mark here: [MFM youtube](https://youtu.be/8yIrBHghAJE?si=XtSmc9IEeMfq-jTA&t=2789)
+Secondly, a practical exercise that I recently started. Another podcast I enjoy is "My First Million" with Sam Parr and Shaan Puri. In a recent episode, Puri talks about a personal Slack channel he has called "Highs and Lows". In this channel, he writes down the most emotional moments while running his businesses. When an extreme event happens, whether good or bad, Puri will write down the event in the channel, overtime creating a log of times to look back on and see how far you have come. I have started to do this in my own way by writing down these types of events for my own career (though not in a Slack channel). Doing this has been helpful, and my hope is that in the long-term it will help me smooth out my own modified Dunning-Kruger curve above, balancing emotions with confidence and competence. The last mention of Puri's "Highs and Lows" channel is at the 46:29 mark here: [MFM youtube](https://youtu.be/8yIrBHghAJE?si=XtSmc9IEeMfq-jTA&t=2789)
