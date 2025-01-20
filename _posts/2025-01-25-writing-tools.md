@@ -97,6 +97,6 @@ After some time and reflection, I figured that I had accomplished the original g
 
 In the past couple of years, I have picked up two things that helped me cope with career lows. First, after the Denver Nuggets won their first NBA championship in franchise history in 2023, center Nikola Jokic had one of my favorite recent quotes:
 
-![jokic]({{ "../assets/2025-01-19-writing-tools/jokic.jpg" | relative_url }}){:style="display:block; width:600px"}
+![jokic]({{ "../assets/2025-01-19-writing-tools/jokic.jpg" | relative_url }}){:style="display:block; width:600px; margin-left:auto; margin-right:auto"}
 
 Second, I recently picked up a practice from a podcast I enjoy called "My First Million" with Sam Parr and Shaan Puri. In one episode, Puri talks about a personal Slack channel he has called "Highs and Lows" in which he writes down the most emotional moments while running his businesses. When an extreme event happens, whether good or bad, Puri will write down the event in the channel, overtime creating a log of moments to look back on and see how far you have come. I have started to do this in my own way by writing down these events for my own career (though not in a Slack channel). Doing this has been helpful, and my hope is that in the long-term it will help me smooth out my own modified Dunning-Kruger curve above, balancing emotions with confidence and competence. The last mention of Puri's "Highs and Lows" channel is at the 46:29 mark here: [MFM youtube](https://youtu.be/8yIrBHghAJE?si=XtSmc9IEeMfq-jTA&t=2789)
