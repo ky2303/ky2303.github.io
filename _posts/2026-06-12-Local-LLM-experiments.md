@@ -32,7 +32,6 @@ While I have been extremely lucky that my workplace has provided basically every
 
 
 ![vibecoding is gambling]({{ "../assets/2026-06-12-Local-LLM-experiments/vibecoding-gambling.png" | relative_url }}) 
-*Credit @vx-underground*
 
 I wrote my own bash scripts based on Carlini's description and pulled down some repos of open source tools that I use often. Unfortunately, I quickly ran into issues as the context window would become too massive for my poor little Mac Mini. Llama-cpp would continuously crash and Claude would return API errors. I chalked this up as a failed experiment and will maybe revisit it with a [more refined approach](https://claude.com/blog/using-llms-to-secure-source-code), when I get new hardware, small models become even better, or when I finally bite the bullet and get a paid subscription to a frontier model. That being said, I disagree with those running this type of setup and flooding Github issues for open source projects with slop so maybe the it's best that this type of workflow is cost-prohibitive and good old-fashioned, organic, farm-to-table code review is left to the experts.
 
