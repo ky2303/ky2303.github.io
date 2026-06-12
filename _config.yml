@@ -1,4 +1,6 @@
-theme: dinky
+remote_theme: pages-themes/dinky@v0.2.0
+plugins:
+- jekyll-remote-theme
 title: ky2303.github.io
 author:  ky2303
 description: none
